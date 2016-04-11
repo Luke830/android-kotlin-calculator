@@ -1,9 +1,6 @@
 package com.dvisagie.calculator
 
-
 class StringCalculator {
-
-
 
     fun calculate(calculationList: List<String>): Int {
         var currentOp: String = ""
@@ -15,21 +12,15 @@ class StringCalculator {
                 || token.equals("/")
                 || token.equals("*")
                 || token.equals("-") -> currentOp = token
-                else -> {
-                    when {
-                        currentOp.equals("-") -> currentNumber -= token.toInt()
-                        currentOp.equals("/") -> currentNumber /= token.toInt()
-                        currentOp.equals("*") -> currentNumber *= token.toInt()
-                        else -> {
-                            currentNumber += token.toInt()
-                        }
-                    }
 
-                }
+                currentOp.equals("-") -> currentNumber -= token.toInt()
+                currentOp.equals("/") -> currentNumber /= token.toInt()
+                currentOp.equals("*") -> currentNumber *= token.toInt()
+                else -> currentNumber += token.toInt()
+
             }
         }
 
         return currentNumber
-
     }
 }
