@@ -29,19 +29,33 @@ class MainActivity : AppCompatActivity() {
 
     fun updateDisplay(){
 
-        val fullCalculationString = makeString(operationList, "")
+        val fullCalculationString = makeString(operationList, " ")
         var fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
 
         fullCalculationTextView.text = fullCalculationString
+
+//        val currentCalculation = makeString(numberCache)
+//        val textView = findViewById(R.id.textView) as TextView
+//        textView.text = currentCalculation
     }
 
     fun clearClick(view: View) {
         numberCache.clear()
         operationList.clear()
+        updateDisplay();
     }
 
     fun equalsClick(view: View) {
+        operationList.add(makeString(numberCache))
+        numberCache.clear()
 
+        val calculator = StringCalculator()
+        val answer = calculator.calculate(operationList)
+
+
+        val textView = findViewById(R.id.textView) as TextView
+        textView.text = "=" + answer.toString()
+        updateDisplay()
     }
 
     fun buttonClick(view: View) {

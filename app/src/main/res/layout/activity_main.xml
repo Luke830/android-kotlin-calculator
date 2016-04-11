@@ -187,6 +187,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="="
+                android:onClick="equalsClick"
                 android:id="@+id/button20"
                 android:layout_weight="0.33" />
         </LinearLayout>
