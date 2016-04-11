@@ -9,10 +9,11 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+      // fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
     }
 
     val operationList: MutableList<String> = arrayListOf()
@@ -21,19 +22,39 @@ class MainActivity : AppCompatActivity() {
 
     //I couldn't find mkString.. so I improvised
     fun makeString(list: List<String>,joiner: String = "") : String {
+
+        if (list.isEmpty()) return ""
         return list.reduce { r, s -> r + joiner + s }
     }
 
     fun updateDisplay(){
 
-        val t = findViewById(R.id.fullCalculationText) as TextView
-        t.text = makeString(operationList, "")
+        val fullCalculationString = makeString(operationList, "")
+        var fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
+
+        fullCalculationTextView.text = fullCalculationString
+    }
+
+    fun clearClick(view: View) {
+        numberCache.clear()
+        operationList.clear()
+    }
+
+    fun equalsClick(view: View) {
+
     }
 
     fun buttonClick(view: View) {
 
         val button = view as Button
 
+        operationList.add(makeString(numberCache))
+        numberCache.clear()
+        operationList.add(button.text.toString())
+
+        val textView = findViewById(R.id.textView) as TextView
+        textView.text = ""
+        updateDisplay()
     }
 
     fun numberClick(view: View) {
@@ -41,9 +62,9 @@ class MainActivity : AppCompatActivity() {
         val numberString = button.text;
 
         numberCache.add(numberString.toString())
-
+        val text = makeString(numberCache);
         val textView = findViewById(R.id.textView) as TextView
-        textView.text = numberString
+        textView.text = text;
         updateDisplay()
     }
 
