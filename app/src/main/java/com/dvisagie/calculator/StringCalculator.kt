@@ -3,7 +3,33 @@ package com.dvisagie.calculator
 
 class StringCalculator {
 
-    fun calculate(s: String): Int {
-        return 4
+
+
+    fun calculate(calculationList: List<String>): Int {
+        var currentOp: String = ""
+        var currentNumber = 0
+
+        calculationList.forEach { token ->
+            when {
+                token.equals("+")
+                || token.equals("/")
+                || token.equals("*")
+                || token.equals("-") -> currentOp = token
+                else -> {
+                    when {
+                        currentOp.equals("-") -> currentNumber -= token.toInt()
+                        currentOp.equals("/") -> currentNumber /= token.toInt()
+                        currentOp.equals("*") -> currentNumber *= token.toInt()
+                        else -> {
+                            currentNumber += token.toInt()
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return currentNumber
+
     }
 }
