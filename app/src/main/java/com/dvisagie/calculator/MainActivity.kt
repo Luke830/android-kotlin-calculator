@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-//import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-      // fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
+        updateDisplay("")
     }
 
     val operationList: MutableList<String> = arrayListOf()
@@ -27,22 +26,24 @@ class MainActivity : AppCompatActivity() {
         return list.reduce { r, s -> r + joiner + s }
     }
 
-    fun updateDisplay(){
+    fun clearCache() {
+        numberCache.clear()
+        operationList.clear()
+    }
+
+    fun updateDisplay(mainDisplayString: String){
 
         val fullCalculationString = makeString(operationList, " ")
         var fullCalculationTextView = findViewById(R.id.fullCalculationText) as TextView
-
         fullCalculationTextView.text = fullCalculationString
 
-//        val currentCalculation = makeString(numberCache)
-//        val textView = findViewById(R.id.textView) as TextView
-//        textView.text = currentCalculation
+        val mainTextView = findViewById(R.id.textView) as TextView
+        mainTextView.text = mainDisplayString
     }
 
     fun clearClick(view: View) {
-        numberCache.clear()
-        operationList.clear()
-        updateDisplay();
+       clearCache()
+       updateDisplay("");
     }
 
     fun equalsClick(view: View) {
@@ -52,23 +53,32 @@ class MainActivity : AppCompatActivity() {
         val calculator = StringCalculator()
         val answer = calculator.calculate(operationList)
 
+        updateDisplay("=" + answer.toString())
+        clearCache()
+    }
 
-        val textView = findViewById(R.id.textView) as TextView
-        textView.text = "=" + answer.toString()
-        updateDisplay()
+    fun negateNumber(view: View){
+        if (numberCache.isNotEmpty()) {
+            if (numberCache.first().equals("-")) {
+                numberCache.removeAt(0)
+            } else numberCache.add(0, "-")
+        } else numberCache.add("-")
+
+        val numberString = makeString(numberCache)
+        updateDisplay(numberString)
     }
 
     fun buttonClick(view: View) {
 
         val button = view as Button
 
+        if (numberCache.isEmpty()) return
+
         operationList.add(makeString(numberCache))
         numberCache.clear()
         operationList.add(button.text.toString())
 
-        val textView = findViewById(R.id.textView) as TextView
-        textView.text = ""
-        updateDisplay()
+        updateDisplay(button.text.toString())
     }
 
     fun numberClick(view: View) {
@@ -77,9 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         numberCache.add(numberString.toString())
         val text = makeString(numberCache);
-        val textView = findViewById(R.id.textView) as TextView
-        textView.text = text;
-        updateDisplay()
+        updateDisplay(text)
     }
 
 }

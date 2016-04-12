@@ -43,20 +43,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="AC"
+                android:onClick="clearClick"
                 android:id="@+id/button9" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="negateNumber"
                 android:text="+/-"
                 android:id="@+id/button10" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="%"
-                android:onClick="buttonClick"
-                android:id="@+id/button11" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -64,6 +59,13 @@
                 android:text="/"
                 android:onClick="buttonClick"
                 android:id="@+id/button12" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="*"
+                android:onClick="buttonClick"
+                android:id="@+id/button8" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,9 +97,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="*"
+                android:text="-"
+                android:id="@+id/subtractButton"
                 android:onClick="buttonClick"
-                android:id="@+id/button8" />
+                android:nestedScrollingEnabled="false" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -129,10 +133,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="-"
-                android:id="@+id/subtractButton"
                 android:onClick="buttonClick"
-                android:nestedScrollingEnabled="false" />
+                android:text="+"
+                android:id="@+id/button16" />
 
         </LinearLayout>
 
@@ -165,9 +168,10 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:onClick="buttonClick"
-                android:text="+"
-                android:id="@+id/button16" />
+                android:text="="
+                android:onClick="equalsClick"
+                android:id="@+id/button20" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -180,16 +184,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="0"
+                android:onClick="numberClick"
                 android:id="@+id/zeroButton"
                 android:layout_weight="0.32" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="="
-                android:onClick="equalsClick"
-                android:id="@+id/button20"
-                android:layout_weight="0.33" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
